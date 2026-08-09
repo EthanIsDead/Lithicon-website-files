@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lithicon R&D Labs | Electrification & Energy Storage</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="container nav-container">
+            <a href="#" class="logo">LITHICON <span>LABS</span></a>
+            <div class="menu-toggle" id="mobile-menu">☰</div>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>Driving Economic Transformation Through Electrification</h1>
+            <p>Providing scalable power generation, advanced battery energy storage, and critical microgrid infrastructure to emerging markets.</p>
+            <div class="hero-buttons">
+                <a href="#services" class="btn btn-primary">Our Solutions</a>
+                <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Metrics Stats Bar -->
+    <div class="container">
+        <div class="stats-section">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3 class="counter" data-target="100">0</h3>
+                    <p>% Clean Energy Goal</p>
+                </div>
+                <div class="stat-item">
+                    <h3 class="counter" data-target="36">0</h3>
+                    <p>Months R&D Scope</p>
+                </div>
+                <div class="stat-item">
+                    <h3 class="counter" data-target="24">0</h3>
+                    <p>7 Reliability</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section id="about" class="reveal">
+        <div class="container">
+            <h2 class="section-title">About Lithicon</h2>
+            <p class="section-subtitle">Meeting Future Energy Demand With Excellence</p>
+            <div class="about-grid">
+                <div class="about-text">
+                    <p>In response to rising electricity demand driven by industrial growth and population increase, Lithicon aims to play a critical role in assisting to electrify emerging regions.</p>
+                    <p>As an energy service provider and system integrator, we offer scalable, reliable energy systems tailored for local conditions. Our integrated solar PV and energy storage solutions allow commercial and industrial customers to replace costly diesel generators, mitigating carbon emissions while drastically reducing energy costs.</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1509391365360-2e959784a276?auto=format&fit=crop&w=800&q=80" alt="Solar Panels and Battery Units">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products & Services -->
+    <section id="services" class="services reveal">
+        <div class="container">
+            <h2 class="section-title">Products & Services</h2>
+            <p class="section-subtitle">Tailored Power & Storage Solutions</p>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>Uninterrupted Backup Power</h3>
+                    <p>High-performance battery energy storage systems (BESS) paired with solar PV to maintain critical commercial and industrial operations during grid outages.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Off-Grid Microgrids</h3>
+                    <p>Integrated solar and energy storage systems supplying reliable electricity to remote areas without access to the central power grid.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Grid Ancillary Services</h3>
+                    <p>Advanced services including frequency regulation, voltage control, fault-current support, and reserves management to stabilize utility grids.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dynamic Projects Feature -->
+    <section id="projects" class="reveal">
+        <div class="container">
+            <h2 class="section-title">Featured Projects & R&D</h2>
+            <p class="section-subtitle">Deploying Clean Energy Infrastructure</p>
+
+            <div class="project-tabs">
+                <button class="tab-btn active" onclick="switchTab('microgrid', event)">Solar Microgrid</button>
+                <button class="tab-btn" onclick="switchTab('geothermal', event)">Critical Minerals & Geothermal</button>
+            </div>
+
+            <div id="project-display" class="project-display">
+                <!-- Content dynamically populated via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Footer -->
+    <section id="contact" class="contact reveal">
+        <div class="container">
+            <h2 class="section-title" style="color: var(--white);">Global Operations</h2>
+            <p class="section-subtitle">Reach out to our global teams</p>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <h3>U.S.A Parent Company</h3>
+                    <p><strong>Lithicon R&D Labs</strong></p>
+                    <p>10900 Research Blvd, Suite 160C</p>
+                    <p>Austin, TX 78759</p>
+                    <p>Email: info@lithiconrdlabs.com</p>
+                </div>
+                <div class="contact-card">
+                    <h3>Uganda Affiliate</h3>
+                    <p><strong>Lithicon Technology Co. Limited</strong></p>
+                    <p>Plot 11 Mpanga Close, Bugolobi</p>
+                    <p>Kampala, Uganda</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; Lithicon R&D Labs and Affiliates. All Rights Reserved.[cite: 1]</p>
+        </div>
+    </footer>
+
+    <!-- Interactive JavaScript -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.getElementById('nav-links');
+
+        mobileMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Dynamic Project Data
+        const projectData = {
+            microgrid: {
+                title: "Solar Microgrid Project (Uganda)",
+                description: "Provides reliable and affordable electricity to support community development, irrigation agriculture, and industrial activities including agro-processing and fish production.",
+                points: [
+                    "Community Water Systems & Irrigation Agriculture",
+                    "Large Scale Grain Processing & Cold Storage",
+                    "Supervisory Control System Integration"
+                ],
+                image: "https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?auto=format&fit=crop&w=800&q=80"
+            },
+            geothermal: {
+                title: "Geothermal & Critical Mineral Evaluation",
+                description: "A 36-month R&D framework assessing volcanic-hosted geothermal systems for energy production paired with domestic lithium and critical mineral recovery.",
+                points: [
+                    "AI and Machine Learning predictive modeling",
+                    "Advanced geophysical sensing and site-twin assimilation",
+                    "Techno-economic and life-cycle sustainability analyses"
+                ],
+                image: "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?auto=format&fit=crop&w=800&q=80"
+            }
+        };
+
+        function switchTab(key, evt) {
+            const btns = document.querySelectorAll('.tab-btn');
+            btns.forEach(btn => btn.classList.remove('active'));
+            if (evt) {
+                evt.target.classList.add('active');
+            }
+
+            const display = document.getElementById('project-display');
+            const data = projectData[key];
+
+            display.style.opacity = '0';
+            setTimeout(() => {
+                display.innerHTML = `
+                    <div class="project-info">
+                        <h3>${data.title}</h3>
+                        <p>${data.description}</p>
+                        <ul>
+                            ${data.points.map(pt => `<li>${pt}</li>`).join('')}
+                        </ul>
+                    </div>
+                    <div class="about-image">
+                        <img src="${data.image}" alt="${data.title}">
+                    </div>
+                `;
+                display.style.opacity = '1';
+            }, 200);
+        }
+
+        // Initialize default tab
+        document.addEventListener('DOMContentLoaded', () => {
+            switchTab('microgrid');
+        });
+
+        // Scroll Reveal Animation via IntersectionObserver
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Animated Numbers Counter Effect
+        const counters = document.querySelectorAll('.counter');
+        let animated = false;
+
+        window.addEventListener('scroll', () => {
+            const statsSection = document.querySelector('.stats-section');
+            if (!statsSection) return;
+            const pos = statsSection.getBoundingClientRect().top;
+            
+            if (pos < window.innerHeight && !animated) {
+                counters.forEach(counter => {
+                    const target = +counter.getAttribute('data-target');
+                    let count = 0;
+                    const speed = target / 50;
+                    
+                    const updateCount = () => {
+                        count += speed;
+                        if (count < target) {
+                            counter.innerText = Math.ceil(count);
+                            setTimeout(updateCount, 30);
+                        } else {
+                            counter.innerText = target;
+                        }
+                    };
+                    updateCount();
+                });
+                animated = true;
+            }
+        });
+    </script>
+</body>
+</html>
