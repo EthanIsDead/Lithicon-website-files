@@ -16,7 +16,9 @@
             <ul class="nav-links" id="nav-links">
                 <li><a href="#about">About Us</a></li>
                 <li><a href="#services">Services</a></li>
+                <li><a href="#battery-demo">Battery Demo</a></li>
                 <li><a href="#projects">Projects</a></li>
+                <li><a href="team.html">Our Team</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </div>
@@ -65,7 +67,7 @@
                     <p>As an energy service provider and system integrator, we offer scalable, reliable energy systems tailored for local conditions. Our integrated solar PV and energy storage solutions allow commercial and industrial customers to replace costly diesel generators, mitigating carbon emissions while drastically reducing energy costs.</p>
                 </div>
                 <div class="about-image">
-                    <img src="https://images.unsplash.com/photo-1509391365360-2e959784a276?auto=format&fit=crop&w=800&q=80" alt="Solar Panels and Battery Units">
+                    <img src="images\about-liticon-pic.png" alt="Solar Panels and Battery Units">
                 </div>
             </div>
         </div>
@@ -89,6 +91,30 @@
                     <h3>Grid Ancillary Services</h3>
                     <p>Advanced services including frequency regulation, voltage control, fault-current support, and reserves management to stabilize utility grids.</p>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Battery Construction Slideshow -->
+    <section id="battery-demo" class="battery-demo reveal">
+        <div class="container">
+            <h2 class="section-title">Lithicon Battery Construction</h2>
+            <p class="section-subtitle">From Assembly To Field Installation</p>
+            <div class="battery-slideshow" id="battery-slideshow" tabindex="0" aria-label="Lithicon battery construction slideshow">
+                <div class="battery-slide-stage">
+                    <img id="battery-slide-image" src="images/battery_demo_section/bat-demo-0.jpg" alt="Lithicon battery enclosure">
+                    <button class="battery-arrow battery-prev" type="button" onclick="changeBatterySlide(-1)" aria-label="Show previous battery construction image">&#8592;</button>
+                    <button class="battery-arrow battery-next" type="button" onclick="changeBatterySlide(1)" aria-label="Show next battery construction image">&#8594;</button>
+                </div>
+                <div class="battery-slide-details">
+                    <div>
+                        <p class="battery-step" id="battery-step">01 / 06</p>
+                        <h3 id="battery-slide-title">Battery enclosure</h3>
+                        <p id="battery-slide-caption">Lithicon's finished battery enclosure ready for system integration.</p>
+                    </div>
+                    <button class="battery-play" id="battery-play" type="button" onclick="toggleBatterySlideshow()" aria-pressed="false">Pause slideshow</button>
+                </div>
+                <div class="battery-progress" id="battery-progress" role="tablist" aria-label="Choose a battery construction image"></div>
             </div>
         </div>
     </section>
@@ -159,7 +185,20 @@
                     "Large Scale Grain Processing & Cold Storage",
                     "Supervisory Control System Integration"
                 ],
-                image: "https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?auto=format&fit=crop&w=800&q=80"
+                images: [
+                    {
+                        src: "images/solar_microgrid_images_graphics/microgrid project images-0.png",
+                        label: "Rack mounted solar panels"
+                    },
+                    {
+                        src: "images/solar_microgrid_images_graphics/microgrid project images-1.png",
+                        label: "Energy storage units"
+                    },
+                    {
+                        src: "images/solar_microgrid_images_graphics/microgrid project images-2.png",
+                        label: "Power transmission assets"
+                    }
+                ]
             },
             geothermal: {
                 title: "Geothermal & Critical Mineral Evaluation",
@@ -169,9 +208,132 @@
                     "Advanced geophysical sensing and site-twin assimilation",
                     "Techno-economic and life-cycle sustainability analyses"
                 ],
-                image: "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?auto=format&fit=crop&w=800&q=80"
+                image: "images/geothermal-crit-min-eval-image.png"
             }
         };
+
+        let microgridImageIndex = 0;
+
+        const batterySlides = [
+            {
+                src: "images/battery_demo_section/bat-demo-0.jpg",
+                title: "Battery enclosure",
+                caption: "Lithicon's finished battery enclosure ready for system integration."
+            },
+            {
+                src: "images/battery_demo_section/bat-demo-1.jpg",
+                title: "Internal battery rack",
+                caption: "The enclosure opened to reveal the rack-mounted storage modules and controls."
+            },
+            {
+                src: "images/battery_demo_section/bat-demo-2.jpg",
+                title: "Roof mounting rails",
+                caption: "The installation team lays out the structural rails for the rooftop array."
+            },
+            {
+                src: "images/battery_demo_section/bat-demo-3.jpg",
+                title: "Panel installation",
+                caption: "Solar modules are positioned across the prepared mounting structure."
+            },
+            {
+                src: "images/battery_demo_section/bat-demo-4.jpg",
+                title: "Panel alignment",
+                caption: "Technicians secure and align the panels for a clean, dependable installation."
+            },
+            {
+                src: "images/battery_demo_section/bat-demo-5.jpg",
+                title: "Completed solar array",
+                caption: "The completed rooftop array is ready to feed the Lithicon energy system."
+            }
+        ];
+        let batterySlideIndex = 0;
+        let batterySlideshowPaused = false;
+        let batterySlideshowTimer;
+
+        function renderBatteryProgress() {
+            const progress = document.getElementById('battery-progress');
+            if (!progress) return;
+            progress.innerHTML = batterySlides.map((slide, index) => `
+                <button class="battery-dot ${index === batterySlideIndex ? 'active' : ''}" type="button" onclick="selectBatterySlide(${index})" role="tab" aria-selected="${index === batterySlideIndex}" aria-label="View ${slide.title}"></button>
+            `).join('');
+        }
+
+        function selectBatterySlide(index) {
+            batterySlideIndex = index;
+            const slide = batterySlides[batterySlideIndex];
+            document.getElementById('battery-slide-image').src = slide.src;
+            document.getElementById('battery-slide-image').alt = slide.title;
+            document.getElementById('battery-step').textContent = `${String(index + 1).padStart(2, '0')} / ${String(batterySlides.length).padStart(2, '0')}`;
+            document.getElementById('battery-slide-title').textContent = slide.title;
+            document.getElementById('battery-slide-caption').textContent = slide.caption;
+            renderBatteryProgress();
+        }
+
+        function changeBatterySlide(direction) {
+            const nextIndex = (batterySlideIndex + direction + batterySlides.length) % batterySlides.length;
+            selectBatterySlide(nextIndex);
+        }
+
+        function toggleBatterySlideshow() {
+            batterySlideshowPaused = !batterySlideshowPaused;
+            const playButton = document.getElementById('battery-play');
+            playButton.textContent = batterySlideshowPaused ? 'Play slideshow' : 'Pause slideshow';
+            playButton.setAttribute('aria-pressed', batterySlideshowPaused);
+            if (batterySlideshowPaused) {
+                clearInterval(batterySlideshowTimer);
+            } else {
+                startBatterySlideshow();
+            }
+        }
+
+        function startBatterySlideshow() {
+            clearInterval(batterySlideshowTimer);
+            batterySlideshowTimer = setInterval(() => {
+                if (!batterySlideshowPaused) changeBatterySlide(1);
+            }, 5000);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderBatteryProgress();
+            startBatterySlideshow();
+        });
+
+        function renderMicrogridGallery() {
+            const images = projectData.microgrid.images;
+            const activeImage = images[microgridImageIndex];
+
+            return `
+                <div class="microgrid-gallery" aria-label="Solar microgrid project images">
+                    <div class="gallery-stage">
+                        <button class="gallery-arrow gallery-prev" type="button" onclick="changeMicrogridImage(-1)" aria-label="Show previous project image">&#8592;</button>
+                        <img src="${activeImage.src}" alt="${activeImage.label}">
+                        <button class="gallery-arrow gallery-next" type="button" onclick="changeMicrogridImage(1)" aria-label="Show next project image">&#8594;</button>
+                    </div>
+                    <p class="gallery-caption">${activeImage.label}</p>
+                    <div class="gallery-thumbnails" role="tablist" aria-label="Choose a project image">
+                        ${images.map((image, index) => `
+                            <button class="gallery-thumb ${index === microgridImageIndex ? 'active' : ''}" type="button" onclick="selectMicrogridImage(${index})" role="tab" aria-selected="${index === microgridImageIndex}" aria-label="View ${image.label}">
+                                <img src="${image.src}" alt="">
+                            </button>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function selectMicrogridImage(index) {
+            microgridImageIndex = index;
+            const gallery = document.querySelector('.microgrid-gallery');
+            if (gallery) {
+                gallery.outerHTML = renderMicrogridGallery();
+            }
+        }
+
+        function changeMicrogridImage(direction) {
+            const totalImages = projectData.microgrid.images.length;
+            microgridImageIndex = (microgridImageIndex + direction + totalImages) % totalImages;
+            selectMicrogridImage(microgridImageIndex);
+        }
 
         function switchTab(key, evt) {
             const btns = document.querySelectorAll('.tab-btn');
@@ -193,9 +355,11 @@
                             ${data.points.map(pt => `<li>${pt}</li>`).join('')}
                         </ul>
                     </div>
-                    <div class="about-image">
-                        <img src="${data.image}" alt="${data.title}">
-                    </div>
+                    ${key === 'microgrid' ? renderMicrogridGallery() : `
+                        <div class="about-image">
+                            <img src="${data.image}" alt="${data.title}">
+                        </div>
+                    `}
                 `;
                 display.style.opacity = '1';
             }, 200);
