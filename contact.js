@@ -1,13 +1,17 @@
-// Route contact form messages to the website owner's inbox.
-// Replace this with the owner's Gmail address if a different mailbox should receive inquiries.
-const CONTACT_INBOX = 'anubhavforswe@gmail.com';
+// Open the visitor's own email app so inquiry data never passes through a third-party form processor.
+const CONTACT_INBOX = 'info@lithiconrdlabs.com';
 
 const contactForm = document.getElementById('contact-form');
 const contactStatus = document.getElementById('contact-status');
 const contactSubmit = document.getElementById('contact-submit');
 
+function setStatus(message, type) {
+    contactStatus.textContent = message;
+    contactStatus.className = type ? `inquiry-status ${type}` : 'inquiry-status';
+}
+
 if (contactForm) {
-    contactForm.addEventListener('submit', async (event) => {
+    contactForm.addEventListener('submit', (event) => {
         event.preventDefault();
         const formData = new FormData(contactForm);
 
@@ -20,49 +24,24 @@ if (contactForm) {
         const subject = String(formData.get('subject') || '').trim();
         const message = String(formData.get('message') || '').trim();
 
-        contactSubmit.disabled = true;
-        contactSubmit.textContent = 'Sending...';
-        contactStatus.textContent = '';
-        contactStatus.className = 'inquiry-status';
-
-        try {
-            const response = await fetch(`https://formsubmit.co/ajax/${CONTACT_INBOX}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify({
-                    name: visitorName,
-                    email: visitorEmail,
-                    subject,
-                    message,
-                    _replyto: visitorEmail,
-                    _subject: `Lithicon website inquiry: ${subject}`,
-                    _template: 'table',
-                    _captcha: 'false'
-                })
-            });
-
-            const result = await response.json();
-            const succeeded = response.ok && (result.success === true || result.success === 'true');
-
-            if (!succeeded) {
-                throw new Error(result.message || 'Unable to send message.');
-            }
-
-            contactStatus.textContent = 'Thank you. Your message has been sent.';
-            contactStatus.classList.add('success');
-            contactForm.reset();
-        } catch (error) {
-            const detail = String(error && error.message ? error.message : '');
-            contactStatus.textContent = /activat|confirm/i.test(detail)
-                ? 'Please check the inbox and confirm this contact form the first time it is used.'
-                : 'Your message could not be sent. Please email info@lithiconrdlabs.com directly.';
-            contactStatus.classList.add('error');
-        } finally {
-            contactSubmit.disabled = false;
-            contactSubmit.textContent = 'Send Message';
+        if (!visitorName || !visitorEmail || !subject || !message) {
+            setStatus('Please complete every field before sending.', 'error');
+            return;
         }
+
+        const mailSubject = `Lithicon website inquiry: ${subject}`;
+        const mailBody = `Name: ${visitorName}\nEmail: ${visitorEmail}\n\n${message}`;
+        const mailtoUrl = `mailto:${CONTACT_INBOX}?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(mailBody)}`;
+
+        setStatus('');
+        contactSubmit.disabled = true;
+
+        window.location.href = mailtoUrl;
+
+        setStatus(
+            `Your email app should open a draft to ${CONTACT_INBOX}. If it does not, send your message to that address directly.`,
+            'success'
+        );
+        contactSubmit.disabled = false;
     });
 }

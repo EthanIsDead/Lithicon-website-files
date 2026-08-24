@@ -725,6 +725,32 @@ section {
     resize: vertical;
 }
 
+.inquiry-form .inquiry-consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-weight: 500;
+    color: var(--text-dark);
+}
+
+.inquiry-form .inquiry-consent input {
+    width: auto;
+    margin-top: 3px;
+    padding: 0;
+    border: none;
+    background: none;
+    box-shadow: none;
+    accent-color: var(--secondary-teal);
+}
+
+.inquiry-privacy {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-weight: 400;
+    line-height: 1.45;
+}
+
 .inquiry-form .btn {
     justify-self: start;
     margin-top: 4px;
