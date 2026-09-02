@@ -10,7 +10,7 @@
     <header>
         <div class="container nav-container">
             <a href="home.html" class="logo">LITHICON <span>LABS</span></a>
-            <div class="menu-toggle" id="mobile-menu">&#9776;</div>
+            <button type="button" class="menu-toggle" id="mobile-menu" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">&#9776;</button>
             <ul class="nav-links" id="nav-links">
                 <li><a href="home.html#about">About Us</a></li>
                 <li><a href="home.html#services">Services</a></li>
@@ -94,7 +94,9 @@
         const navLinks = document.getElementById('nav-links');
 
         mobileMenu.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
+            const open = navLinks.classList.toggle('active');
+            mobileMenu.setAttribute('aria-expanded', open);
+            mobileMenu.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
         });
     </script>
 </body>

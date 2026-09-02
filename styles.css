@@ -6,9 +6,12 @@
     --dark-blue: #051923;
     --light-bg: #F4F9F9;
     --white: #FFFFFF;
-    --text-dark: #2B2D42;
-    --text-muted: #6C757D;
-    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    --text-dark: #111827;
+    --text-muted: #4B5563;
+    --danger: #DC2626;
+    --space: 8px;
+    --radius: 8px;
+    --transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 /* Reset & Global Styling */
@@ -16,12 +19,12 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: system-ui, "Segoe UI", Roboto, sans-serif;
 }
 
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 90px;
+    scroll-padding-top: 80px;
 }
 
 body {
@@ -36,33 +39,41 @@ a {
     color: inherit;
 }
 
+:focus-visible {
+    outline: 2px solid var(--secondary-teal);
+    outline-offset: 3px;
+}
+
 /* Typography & Utility Components */
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 24px;
 }
 
 .section-title {
     text-align: center;
-    font-size: 2.2rem;
+    font-size: 2rem;
     color: var(--primary-blue);
-    margin-bottom: 10px;
-    position: relative;
+    margin-bottom: var(--space);
+    font-weight: 700;
 }
 
 .section-subtitle {
     text-align: center;
-    color: var(--secondary-teal);
-    font-size: 1.1rem;
+    color: var(--primary-blue);
+    font-size: 1rem;
     margin-bottom: 40px;
-    font-weight: 600;
+    font-weight: 500;
 }
 
 .btn {
-    display: inline-block;
-    padding: 12px 28px;
-    border-radius: 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 12px 24px;
+    border-radius: 999px;
     font-weight: 600;
     cursor: pointer;
     transition: var(--transition);
@@ -72,13 +83,10 @@ a {
 .btn-primary {
     background-color: var(--secondary-teal);
     color: var(--white);
-    box-shadow: 0 4px 15px rgba(0, 168, 150, 0.3);
 }
 
 .btn-primary:hover {
     background-color: var(--accent-cyan);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(2, 195, 154, 0.4);
 }
 
 .btn-secondary {
@@ -99,10 +107,6 @@ a {
 
 .team-page header {
     background-color: rgba(5, 25, 35, 0.96);
-}
-
-.team-page .nav-links .current {
-    color: var(--accent-cyan);
 }
 
 .team-hero {
@@ -196,7 +200,7 @@ a {
 }
 
 .team-bio {
-    color: #4a5568;
+    color: var(--text-muted);
 }
 
 .team-bio p + p {
@@ -239,21 +243,31 @@ header {
 .nav-links {
     display: flex;
     list-style: none;
-    gap: 25px;
+    gap: 8px;
 }
 
 .nav-links a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 8px;
     color: var(--white);
     font-weight: 500;
     transition: var(--transition);
 }
 
-.nav-links a:hover {
+.nav-links a:hover,
+.nav-links a.current {
     color: var(--accent-cyan);
 }
 
 .menu-toggle {
     display: none;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0;
+    border: 0;
+    background: transparent;
     color: var(--white);
     font-size: 1.5rem;
     cursor: pointer;
@@ -279,33 +293,31 @@ header {
 .hero h1 {
     font-size: 3rem;
     line-height: 1.2;
-    margin-bottom: 20px;
-    animation: fadeInDown 1s ease;
+    margin-bottom: 16px;
 }
 
 .hero p {
-    font-size: 1.2rem;
-    margin-bottom: 30px;
-    color: #E0E0E0;
-    animation: fadeInUp 1s ease 0.2s backwards;
+    font-size: 1.125rem;
+    margin-bottom: 32px;
+    color: #E5E7EB;
 }
 
 .hero-buttons {
     display: flex;
-    gap: 15px;
+    flex-wrap: wrap;
+    gap: 16px;
     justify-content: center;
-    animation: fadeInUp 1s ease 0.4s backwards;
 }
 
 /* Stats Bar */
 .stats-section {
     background-color: var(--white);
     padding: 40px 0;
-    margin-top: -50px;
+    margin-top: -48px;
     position: relative;
     z-index: 10;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    border-radius: var(--radius);
+    box-shadow: 0 8px 24px rgba(5, 25, 35, 0.08);
 }
 
 .stats-grid {
@@ -340,14 +352,14 @@ section {
 }
 
 .about-text p {
-    margin-bottom: 15px;
-    color: #4A5568;
+    margin-bottom: 16px;
+    color: var(--text-muted);
 }
 
 .about-image img {
     width: 100%;
-    border-radius: 12px;
-    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    border-radius: var(--radius);
+    box-shadow: 0 8px 24px rgba(5, 25, 35, 0.1);
 }
 
 /* Services Grid */
@@ -363,16 +375,9 @@ section {
 
 .service-card {
     background: var(--light-bg);
-    padding: 30px;
-    border-radius: 12px;
+    padding: 24px;
+    border-radius: var(--radius);
     border-top: 4px solid var(--secondary-teal);
-    transition: var(--transition);
-    cursor: pointer;
-}
-
-.service-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 25px rgba(0, 168, 150, 0.15);
 }
 
 .service-card h3 {
@@ -417,8 +422,8 @@ section {
     position: absolute;
     z-index: 1;
     top: 50%;
-    width: 42px;
-    height: 42px;
+    width: 44px;
+    height: 44px;
     border: 0;
     border-radius: 50%;
     background: rgba(5, 25, 35, 0.8);
@@ -467,9 +472,10 @@ section {
 
 .battery-play {
     flex: 0 0 auto;
+    min-height: 44px;
     padding: 10px 16px;
     border: 1px solid var(--accent-cyan);
-    border-radius: 20px;
+    border-radius: 999px;
     background: transparent;
     color: var(--white);
     cursor: pointer;
@@ -481,7 +487,6 @@ section {
 .battery-play:focus-visible {
     background: var(--accent-cyan);
     color: var(--dark-blue);
-    outline: none;
 }
 
 .battery-progress {
@@ -508,14 +513,16 @@ section {
 /* Projects Interactive Section */
 .project-tabs {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    gap: 15px;
-    margin-bottom: 30px;
+    gap: 16px;
+    margin-bottom: 32px;
 }
 
 .tab-btn {
+    min-height: 44px;
     padding: 10px 20px;
-    border-radius: 20px;
+    border-radius: 999px;
     background: var(--white);
     border: 1px solid var(--secondary-teal);
     color: var(--primary-blue);
@@ -531,9 +538,9 @@ section {
 
 .project-display {
     background: var(--white);
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    padding: 32px;
+    border-radius: var(--radius);
+    box-shadow: 0 8px 24px rgba(5, 25, 35, 0.06);
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 30px;
@@ -592,8 +599,8 @@ section {
     position: absolute;
     z-index: 1;
     top: 50%;
-    width: 38px;
-    height: 38px;
+    width: 44px;
+    height: 44px;
     border: 0;
     border-radius: 50%;
     background: var(--primary-blue);
@@ -661,10 +668,19 @@ section {
     gap: 40px;
 }
 
+.contact .section-title,
+.contact .section-subtitle {
+    color: var(--white);
+}
+
+.contact .section-subtitle {
+    color: var(--accent-cyan);
+}
+
 .contact-card {
     background: rgba(255, 255, 255, 0.05);
-    padding: 30px;
-    border-radius: 12px;
+    padding: 24px;
+    border-radius: var(--radius);
     border-left: 4px solid var(--accent-cyan);
 }
 
@@ -682,13 +698,13 @@ section {
     display: grid;
     max-width: 720px;
     margin: 0 auto;
-    gap: 18px;
+    gap: 16px;
 }
 
 .inquiry-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 18px;
+    gap: 16px;
 }
 
 .inquiry-form label {
@@ -702,9 +718,10 @@ section {
 .inquiry-form input,
 .inquiry-form textarea {
     width: 100%;
+    min-height: 44px;
     padding: 12px 14px;
     border: 1px solid rgba(10, 54, 99, 0.18);
-    border-radius: 8px;
+    border-radius: var(--radius);
     background: var(--light-bg);
     color: var(--text-dark);
     font-size: 1rem;
@@ -712,12 +729,10 @@ section {
     transition: var(--transition);
 }
 
-.inquiry-form input:focus,
-.inquiry-form textarea:focus {
-    outline: none;
+.inquiry-form input:focus-visible,
+.inquiry-form textarea:focus-visible {
     border-color: var(--secondary-teal);
     background: var(--white);
-    box-shadow: 0 0 0 3px rgba(0, 168, 150, 0.15);
 }
 
 .inquiry-form textarea {
@@ -734,7 +749,9 @@ section {
 }
 
 .inquiry-form .inquiry-consent input {
-    width: auto;
+    width: 18px;
+    height: 18px;
+    min-height: 18px;
     margin-top: 3px;
     padding: 0;
     border: none;
@@ -743,23 +760,14 @@ section {
     accent-color: var(--secondary-teal);
 }
 
-.inquiry-privacy {
-    margin: 0;
-    color: var(--text-muted);
-    font-size: 0.85rem;
-    font-weight: 400;
-    line-height: 1.45;
-}
-
 .inquiry-form .btn {
     justify-self: start;
-    margin-top: 4px;
+    margin-top: 8px;
 }
 
 .inquiry-form .btn:disabled {
     opacity: 0.7;
     cursor: wait;
-    transform: none;
 }
 
 .honeypot {
@@ -780,14 +788,14 @@ section {
 }
 
 .inquiry-status.error {
-    color: #c0392b;
+    color: var(--danger);
 }
 
 footer {
     background-color: #030E14;
-    color: var(--text-muted);
+    color: #9CA3AF;
     text-align: center;
-    padding: 20px 0;
+    padding: 24px 0;
     font-size: 0.9rem;
     border-top: 1px solid rgba(255,255,255,0.05);
 }
@@ -795,8 +803,8 @@ footer {
 /* Reveal Animations */
 .reveal {
     opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.8s ease-out;
+    transform: translateY(16px);
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
 }
 
 .reveal.active {
@@ -804,15 +812,17 @@ footer {
     transform: translateY(0);
 }
 
-/* Keyframe Animations */
-@keyframes fadeInDown {
-    from { opacity: 0; transform: translateY(-30px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
 
-@keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
+    .reveal,
+    .reveal.active {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
 }
 
 /* Responsive Layout adjustments */
@@ -828,7 +838,7 @@ footer {
         flex-direction: column;
         align-items: center;
         padding-top: 40px;
-        transition: var(--transition);
+        transition: right 0.2s ease;
     }
     .nav-links.active { right: 0; }
     .hero h1 { font-size: 2rem; }

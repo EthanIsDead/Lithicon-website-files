@@ -1,6 +1,3 @@
-// Open the visitor's own email app so inquiry data never passes through a third-party form processor.
-const CONTACT_INBOX = 'info@lithiconrdlabs.com';
-
 const contactForm = document.getElementById('contact-form');
 const contactStatus = document.getElementById('contact-status');
 const contactSubmit = document.getElementById('contact-submit');
@@ -11,7 +8,7 @@ function setStatus(message, type) {
 }
 
 if (contactForm) {
-    contactForm.addEventListener('submit', (event) => {
+    contactForm.addEventListener('submit', async (event) => {
         event.preventDefault();
         const formData = new FormData(contactForm);
 
@@ -29,19 +26,33 @@ if (contactForm) {
             return;
         }
 
-        const mailSubject = `Lithicon website inquiry: ${subject}`;
-        const mailBody = `Name: ${visitorName}\nEmail: ${visitorEmail}\n\n${message}`;
-        const mailtoUrl = `mailto:${CONTACT_INBOX}?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(mailBody)}`;
+        formData.append('access_key', '1d8c1316-ac4a-4917-b31e-7f312097e406');
+        formData.set('subject', `Lithicon website inquiry: ${subject}`);
+        formData.append('from_name', visitorName);
 
-        setStatus('');
         contactSubmit.disabled = true;
+        setStatus('');
 
-        window.location.href = mailtoUrl;
+        try {
+            const response = await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                body: formData
+            });
+            const result = await response.json();
 
-        setStatus(
-            `Your email app should open a draft to ${CONTACT_INBOX}. If it does not, send your message to that address directly.`,
-            'success'
-        );
-        contactSubmit.disabled = false;
+            if (result.success) {
+                setStatus('Thank you. Your message has been sent.', 'success');
+                contactForm.reset();
+            } else {
+                setStatus(
+                    result.message || 'Your message could not be sent. Please email info@lithiconrdlabs.com directly.',
+                    'error'
+                );
+            }
+        } catch (error) {
+            setStatus('Your message could not be sent. Please email info@lithiconrdlabs.com directly.', 'error');
+        } finally {
+            contactSubmit.disabled = false;
+        }
     });
 }

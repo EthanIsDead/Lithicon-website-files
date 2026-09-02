@@ -12,7 +12,7 @@
     <header>
         <div class="container nav-container">
             <a href="#" class="logo">LITHICON <span>LABS</span></a>
-            <div class="menu-toggle" id="mobile-menu">☰</div>
+            <button type="button" class="menu-toggle" id="mobile-menu" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">☰</button>
             <ul class="nav-links" id="nav-links">
                 <li><a href="#about">About Us</a></li>
                 <li><a href="#services">Services</a></li>
@@ -67,7 +67,7 @@
                     <p>As an energy service provider and system integrator, we offer scalable, reliable energy systems tailored for local conditions. Our integrated solar PV and energy storage solutions allow commercial and industrial customers to replace costly diesel generators, mitigating carbon emissions while drastically reducing energy costs.</p>
                 </div>
                 <div class="about-image">
-                    <img src="images\about-liticon-pic.png" alt="Solar Panels and Battery Units">
+                    <img src="images/about-liticon-pic.png" alt="Solar Panels and Battery Units">
                 </div>
             </div>
         </div>
@@ -139,7 +139,7 @@
     <!-- Global Operations -->
     <section class="contact reveal">
         <div class="container">
-            <h2 class="section-title" style="color: var(--white);">Global Operations</h2>
+            <h2 class="section-title">Global Operations</h2>
             <p class="section-subtitle">Reach out to our global teams</p>
             <div class="contact-grid">
                 <div class="contact-card">
@@ -187,7 +187,6 @@
                     <input id="contact-consent" type="checkbox" name="consent" required>
                     <span>I agree that Lithicon may use my name and email only to reply to this inquiry.</span>
                 </label>
-                <p class="inquiry-privacy">Your message is sent from your own email app to info@lithiconrdlabs.com. We do not use a third-party form service.</p>
                 <button type="submit" class="btn btn-primary" id="contact-submit">Send Message</button>
                 <p id="contact-status" class="inquiry-status" role="status" aria-live="polite"></p>
             </form>
@@ -196,7 +195,7 @@
 
     <footer>
         <div class="container">
-            <p>&copy; Lithicon R&D Labs and Affiliates. All Rights Reserved.[cite: 1]</p>
+            <p>&copy; Lithicon R&D Labs and Affiliates. All Rights Reserved.</p>
         </div>
     </footer>
 
@@ -207,7 +206,9 @@
         const navLinks = document.getElementById('nav-links');
 
         mobileMenu.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
+            const open = navLinks.classList.toggle('active');
+            mobileMenu.setAttribute('aria-expanded', open);
+            mobileMenu.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
         });
 
         navLinks.querySelectorAll('a').forEach((link) => {
