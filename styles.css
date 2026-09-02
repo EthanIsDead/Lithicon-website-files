@@ -291,6 +291,7 @@ header {
 
 /* Hero Section */
 .hero {
+    position: relative;
     min-height: 100vh;
     background: linear-gradient(rgba(5, 25, 35, 0.72), rgba(5, 25, 35, 0.72)),
                 url('images/title-page-background-img.png') center/cover no-repeat;
@@ -298,7 +299,7 @@ header {
     align-items: center;
     text-align: center;
     color: var(--white);
-    padding: 96px 0 80px;
+    padding: 96px 0 96px;
 }
 
 .hero-content {
@@ -325,6 +326,78 @@ header {
     flex-wrap: wrap;
     gap: 16px;
     justify-content: center;
+}
+
+.hero-scroll {
+    position: absolute;
+    left: 50%;
+    bottom: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    color: var(--white);
+    opacity: 0.45;
+    transform: translateX(-50%);
+    transition: opacity 0.2s ease;
+}
+
+.hero-scroll:hover,
+.hero-scroll:focus-visible {
+    opacity: 0.85;
+}
+
+.hero-scroll-arrow {
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: rotate(45deg);
+}
+
+.story-hero {
+    padding: 80px 0 56px;
+    background: var(--surface);
+}
+
+.story-hero-shell {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 32px;
+}
+
+.story-hero-frame {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: var(--dark-blue);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+}
+
+.story-video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: var(--dark-blue);
+}
+
+.story-video-placeholder {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    margin: 0;
+    color: #D1D5DB;
+    font-size: var(--text-14);
+    font-weight: 400;
+}
+
+.story-video-placeholder[hidden] {
+    display: none;
 }
 
 /* Stats Bar */
@@ -853,6 +926,10 @@ footer {
         transform: none;
         transition: none;
     }
+
+    .hero-scroll {
+        animation: none;
+    }
 }
 
 @media (max-width: 768px) {
@@ -890,6 +967,14 @@ footer {
 
     .hero h1 {
         font-size: var(--text-24);
+    }
+
+    .story-hero {
+        padding: 56px 0 40px;
+    }
+
+    .story-hero-shell {
+        padding: 0 20px;
     }
 
     .about-grid,
