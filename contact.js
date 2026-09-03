@@ -26,17 +26,19 @@ if (contactForm) {
             return;
         }
 
-        formData.append('access_key', '1d8c1316-ac4a-4917-b31e-7f312097e406');
-        formData.set('subject', `Lithicon website inquiry: ${subject}`);
-        formData.append('from_name', visitorName);
-
         contactSubmit.disabled = true;
         setStatus('');
 
         try {
-            const response = await fetch('https://api.web3forms.com/submit', {
+            const response = await fetch('/.netlify/functions/contact', {
                 method: 'POST',
-                body: formData
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name: visitorName,
+                    email: visitorEmail,
+                    subject,
+                    message
+                })
             });
             const result = await response.json();
 
